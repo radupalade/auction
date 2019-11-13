@@ -12,22 +12,22 @@ import javax.validation.constraints.Size;
 public class UserDto {
 
     private Integer id;
-    @NotEmpty(message = "please insert your first name!")
+    @NotEmpty(message = "{error.user.fistName.regex}")
     @Pattern(regexp = "[A-Za-z]+", message = "letters only!")
     private String firstName;
-    @NotEmpty(message = "please insert your first name!")
+    @NotEmpty(message = "{error.user.lastName.regex}")
     @Pattern(regexp = "[A-Za-z]+", message = "letters only!")
     private String lastName;
     @NotEmpty
     @Email(message = "{error.user.email.regex}") //TEMA de modificat peste tot
     private String email;
     @NotEmpty
-    @Pattern(regexp = "((.*)[A-Z]+(.*))", message = "password should contain atleast one capital letter")
-    @Size(min = 6, message = "password should be at least 6 chars long")
+    @Pattern(regexp = "((.*)[A-Z]+(.*))", message = "{error.user.password.regex}")
+    @Size(min = 6, message = "{error.user.password.min}")
     private String password;
     @NotEmpty
     @Pattern(regexp = "((.*)[A-Z]+(.*))", message = "password should contain atleast one capital letter")
-    @Size(min = 6, message = "Confirm password should be at least 6 chars long")
+    @Size(min = 6, message = "{error.user.confirmPassword.min}")
     private String confirmPassword;
 
 
