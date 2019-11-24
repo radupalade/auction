@@ -15,43 +15,41 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
+
     private UserMapper userMapper;
     private UserRepository userRepository;
     private BCryptPasswordEncoder passwordEncoder;
     private SecurityService securityService;
-    private RoleRepository roleRepository;
+
 
     @Autowired
-    public UserServiceImpl(UserMapper userMapper, UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, SecurityService securityService, RoleRepository roleRepository) {
+    public UserServiceImpl(UserMapper userMapper,
+                           UserRepository userRepository,
+                           BCryptPasswordEncoder passwordEncoder,
+                           SecurityService securityService) {
         this.userMapper = userMapper;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-
         this.securityService = securityService;
-        this.roleRepository = roleRepository;
     }
+
 
     @Override
     public UserDto addUser(UserDto userDto) {
-        //convertim  DTO in entity
+
+        //convertim dto in entity
         User user = userMapper.convert(userDto);
+
         encodePassword(user);
-        addUserRoles(user);
+        securityService.addUserRoles(user);
 
         //persistam in baza de date
         User savedUser = userRepository.save(user);
 
-        //convertim entitatea persistata inapoi in DTO pentru a o intoarce catre requester(ex.postman)
+        //convertim entitatea persistata inapoi in dto pentru a o intoarce care requester
         return userMapper.convert(savedUser);
-
     }
 
-    private void addUserRoles(User user) {
-        Role role = roleRepository.findByRoleName("user");
-        user.addRole(role);
-        Role admin = roleRepository.findByRoleName("admin");
-        user.addRole(admin);
-    }
 
     @Override
     public User findByEmail(String email) {
@@ -62,16 +60,15 @@ public class UserServiceImpl implements UserService {
     public LoginDto login(LoginDto loginDto) {
         User user = userRepository.findByEmail(loginDto.getEmail());
         if (user == null) {
-            throw new RuntimeException("user account with this email doesnt exist!");
+            throw new RuntimeException("User account with this email address not existent!");
         }
         if (securityService.passwordMatch(loginDto, user)) {
             return securityService.createDtoWithJwt(user);
         }
-        throw new RuntimeException("passwords do not match!");
+        throw new RuntimeException("Passwords do not match!");
     }
 
     private void encodePassword(User user) {
-
         //encode user's password and put it in passwordEncoded variable
         String passwordEncoded = passwordEncoder.encode(user.getPassword());
         //set the encoded password to user entity

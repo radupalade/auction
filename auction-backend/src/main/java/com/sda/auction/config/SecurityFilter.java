@@ -1,23 +1,28 @@
 package com.sda.auction.config;
 
-import com.sda.auction.dto.ErrorResponseDto;
 import com.sda.auction.service.SecurityService;
 import com.sda.auction.service.impl.AccesDeniedHandler;
+
+import java.io.IOException;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.*;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
 @Component
 @Order(1)
 public class SecurityFilter implements Filter {
+
     @Autowired
     private SecurityService securityService;
     @Autowired
-    private AccesDeniedHandler accesDeniedHandler;
+    private AccesDeniedHandler accessDeniedHandler;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -25,12 +30,16 @@ public class SecurityFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
+                         FilterChain filterChain) throws IOException, ServletException {
+
         if (securityService.isValid(servletRequest)) {
+
+            securityService.setEmailOn(servletRequest);
+
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
-            accesDeniedHandler.reply(servletResponse);
-
+            accessDeniedHandler.reply(servletResponse);
         }
     }
 
@@ -39,3 +48,4 @@ public class SecurityFilter implements Filter {
 
     }
 }
+

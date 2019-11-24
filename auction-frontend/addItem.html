@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Aroma Shop - Login</title>
+	<link rel="icon" href="resources/img/Fevicon.png" type="image/png">
+	<link rel="stylesheet" href="resources/vendors/bootstrap/bootstrap.min.css">
+	<link rel="stylesheet" href="resources/vendors/fontawesome/css/all.min.css">
+	<link rel="stylesheet" href="resources/vendors/themify-icons/themify-icons.css">
+	<link rel="stylesheet" href="resources/vendors/linericon/style.css">
+	<link rel="stylesheet" href="resources/vendors/owl-carousel/owl.theme.default.min.css">
+	<link rel="stylesheet" href="resources/vendors/owl-carousel/owl.carousel.min.css">
+	<link rel="stylesheet" href="resources/vendors/nice-select/nice-select.css">
+	<link rel="stylesheet" href="resources/vendors/nouislider/nouislider.min.css">
+
+	<link rel="stylesheet" href="resources/css/style.css">
+</head>
+<body>
+
+<!--================Login Box Area =================-->
+<section class="addItem_box_area section-margin">
+	<div class="container">
+		<div class="row">
+
+			<div class="col-lg-6 main-div">
+				<div class="login_form_inner register_form_inner">
+					<h3>Add an item to auction</h3>
+					<form class="row login_form" action="#/" id="addItem_form">
+
+						<div class="col-md-12 form-group">
+							<input type="text" class="form-control" id="name" name="name"
+								   placeholder="Name" onfocus="this.placeholder = ''"
+								   onblur="this.placeholder = 'Name'">
+						</div>
+
+						<div class="col-md-12 form-group">
+							<input type="text" class="form-control" id="description" name="description"
+								   placeholder="Description" onfocus="this.placeholder = ''"
+								   onblur="this.placeholder = 'Description'">
+						</div>
+
+
+						<div class="col-md-12 form-group">
+							<input type="text" class="form-control" id="category" name="category"
+								   placeholder="Category" onfocus="this.placeholder = ''"
+								   onblur="this.placeholder = 'Category'">
+						</div>
+						<div class="col-md-12 form-group">
+							<input type="number" min="0" class="form-control" id="startingPrice" name="startingPrice"
+								   placeholder="Starting price" onfocus="this.placeholder = ''"
+								   onblur="this.placeholder = 'Starting price'">
+						</div>
+						<div class="col-md-12 form-group">
+							<input type="date" class="form-control" id="startDate" name="startDate"
+								   placeholder="Start date" onfocus="this.placeholder = ''"
+								   onblur="this.placeholder = 'Start date'">
+						</div>
+						<div class="col-md-12 form-group">
+							<input type="date" class="form-control" id="endDate" name="endDate"
+								   placeholder="End date" onfocus="this.placeholder = ''"
+								   onblur="this.placeholder = 'End date'">
+						</div>
+
+						<div class="col-md-12 form-group">
+							<input type="file" class="form-control" id="photo" name="photo"
+								   placeholder="Photo" onfocus="this.placeholder = ''"
+								   onblur="this.placeholder = 'Photo'">
+						</div>
+
+						<div class="col-md-12 form-group">
+							<button type="button" value="submit" class="button button-register w-100">Add item
+							</button>
+						</div>
+						<div class="col-md-12 form-group addSuccessful">
+
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--================End Login Box Area =================-->
+
+
+<script src="resources/vendors/jquery/jquery-3.2.1.min.js"></script>
+<script src="resources/vendors/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="resources/vendors/skrollr.min.js"></script>
+<script src="resources/vendors/owl-carousel/owl.carousel.min.js"></script>
+<script src="resources/vendors/nice-select/jquery.nice-select.min.js"></script>
+<script src="resources/vendors/jquery.ajaxchimp.min.js"></script>
+<script src="resources/vendors/mail-script.js"></script>
+<script src="resources/js/main.js"></script>
+
+<script src="resources/js/addItem.js"></script>
+</body>
+</html>
