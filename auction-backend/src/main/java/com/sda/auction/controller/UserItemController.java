@@ -32,10 +32,10 @@ public class UserItemController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<ItemDto> getById(@PathVariable Integer id) {
+    public ResponseEntity<ItemDto> getById(@PathVariable Integer id, HttpServletRequest request) {
         System.out.println("Item id  = " + id);
-
-        ItemDto itemDto = itemService.findByIdForUser(id);
+        String userEmail = (String) request.getAttribute("userEmail");
+        ItemDto itemDto = itemService.findByIdForUser(id, userEmail);
         return new ResponseEntity<>(itemDto, HttpStatus.OK);
     }
 

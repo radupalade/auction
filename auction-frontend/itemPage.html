@@ -81,17 +81,22 @@
 					<ul class="list">
 						<li><a class="active" href="#"><span>Category</span> : <span
 								class="itemCategory"></span></a></li>
+						<li><a class="active" href="#"><span>Starting price</span> : <span
+								class="itemStartingPrice"></span></a></li>
 						<li><a href="#"><span>Start date</span> : <span class="itemStartDate"></span></a></li>
 						<li><a href="#"><span>End date</span> : <span class="itemEndDate"></span></a></li>
 						<li class="adminOnly"><a href="#"><span>Owner</span> : <span class="itemOwner"></span></a></li>
 					</ul>
 					<p class="itemDescription"></p>
-					<div class="product_count userOnly">
+					<div class="bidArea userOnly">
 						<label for="qty">My offer:</label>
 						<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;" class="increase items-count" type="button"><i class="ti-angle-left"></i></button>
 						<input type="text" name="qty" id="sst" size="2" maxlength="12" value="1" title="Quantity:" class="input-text qty">
 						<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;" class="reduced items-count" type="button"><i class="ti-angle-right"></i></button>
 						<a class="button primary-btn" href="#">Bid</a>
+					</div>
+					<div class="addSuccessful">
+
 					</div>
 					<!--          <div class="card_area d-flex align-items-center">-->
 					<!--            <a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>-->

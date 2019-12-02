@@ -140,7 +140,8 @@ function addItemOnPage(itemDto) {
     $(newItem).find(".itemName").html(itemDto.name);
     $(newItem).find(".itemName").attr("href", "itemPage.html?id=" + itemDto.id);
     $(newItem).find(".itemCategory").html(itemDto.category);
-    $(newItem).find(".itemPrice").html("$" + itemDto.startingPrice);
+    $(newItem).find(".itemPrice").html("$" + itemDto.currentPrice);
+    $(newItem).find(".itemStartingPrice").html("$" + itemDto.startingPrice);
     $(newItem).find(".itemImage").attr("src", itemDto.photo);
     $(newItem).removeClass("itemPattern");
     $(".itemList").append(newItem);
@@ -164,7 +165,8 @@ var getUrlParameter = function getUrlParameter(sParam) {
 function displayItemForAdmin(itemDto) {
     $(".itemName").html(itemDto.name);
     $(".itemCategory").html(itemDto.category);
-    $(".itemPrice").html("$" + itemDto.startingPrice);
+    $(".itemPrice").html("$" + itemDto.currentPrice);
+    $(".itemStartingPrice").html("$" + itemDto.startingPrice);
     $(".itemImage").attr("src", itemDto.photo);
     $(".itemDescription").html(itemDto.description);
     $(".itemStartDate").html(itemDto.startDate);
@@ -175,7 +177,8 @@ function displayItemForAdmin(itemDto) {
 function displayItemForUser(itemDto) {
     $(".itemName").html(itemDto.name);
     $(".itemCategory").html(itemDto.category);
-    $(".itemPrice").html("$" + itemDto.startingPrice);
+    $(".itemPrice").html("$" + itemDto.currentPrice);
+    $(".itemStartingPrice").html("$" + itemDto.startingPrice);
     $(".itemImage").attr("src", itemDto.photo);
     $(".itemDescription").html(itemDto.description);
     $(".itemStartDate").html(itemDto.startDate);
@@ -246,7 +249,35 @@ function addLogout() {
     });
 }
 
+function addBid() {
+
+    const itemId = getUrlParameter("id");
+    const price = $(".bidArea input").val();
+
+    const bidDto = JSON.stringify({
+        price, itemId
+    });
+    $.ajax({
+        url: 'http://localhost:8080/api/user/bid',
+        dataType: 'json',
+        headers: createAuthorizationHeader(),
+        type: 'post',
+        contentType: 'application/json',
+        data: bidDto,
+        success: function (data, textStatus, jQxhr) {
+            $(".addSuccessful").removeClass("error").html("Your bid has been placed");
+            getItemById(false);
+        },
+        error: function (jqXhr, textStatus, errorThrown) {
+            $(".addSuccessful").addClass("error").html("Your bid has not been placed! An error occured.");
+        }
+    });
+}
+
 $(document).ready(function () {
     setHeaderForUser();
     addLogout();
+    $(".bidArea .button.primary-btn").click(function () {
+        addBid();
+    });
 });

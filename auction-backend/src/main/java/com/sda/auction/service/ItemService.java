@@ -11,9 +11,9 @@ public interface ItemService {
 
     List<ItemDto> findAll();
 
-    ItemDto findById(Integer id);
+    ItemDto findByIdFor(Integer id, String userEmail);
 
     List<ItemDto> findAllForBidding();
 
-    ItemDto findByIdForUser(Integer id);
+    ItemDto findByIdForUser(Integer id, String email);
 }

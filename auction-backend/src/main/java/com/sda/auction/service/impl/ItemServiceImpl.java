@@ -42,14 +42,14 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public ItemDto findById(Integer id) {
+    public ItemDto findByIdFor(Integer id, String userEmail) {
         Optional<Item> optionalItem = itemRepository.findById(id);
         if (!optionalItem.isPresent()) {
             throw new RuntimeException("Item with id " + id + " does not exist!");
         }
 
         Item item = optionalItem.get();
-        return itemMapper.convert(item);
+        return itemMapper.convert(item, userEmail);
     }
 
     @Override
@@ -59,8 +59,8 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public ItemDto findByIdForUser(Integer id) {
-        ItemDto itemDto = findById(id);
+    public ItemDto findByIdForUser(Integer id, String userEmail) {
+        ItemDto itemDto = findByIdFor(id, userEmail);
         itemDto.resetOwner();
         return itemDto;
     }

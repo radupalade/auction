@@ -140,7 +140,7 @@ function addItemOnPage(itemDto) {
     $(newItem).find(".itemName").html(itemDto.name);
     $(newItem).find(".itemName").attr("href", "itemPage.html?id=" + itemDto.id);
     $(newItem).find(".itemCategory").html(itemDto.category);
-    $(newItem).find(".itemPrice").html("$" + itemDto.startingPrice);
+    $(newItem).find(".itemPrice").html("$" + itemDto.currentPrice);
     $(newItem).find(".itemImage").attr("src", itemDto.photo);
     $(newItem).removeClass("itemPattern");
     $(".itemList").append(newItem);

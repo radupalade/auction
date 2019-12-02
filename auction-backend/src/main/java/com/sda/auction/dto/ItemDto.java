@@ -24,6 +24,9 @@ public class ItemDto {
     @Positive
     private int startingPrice;
 
+    @Positive
+    private int currentPrice;
+
     @NotEmpty
     private String category;
 
@@ -41,4 +44,6 @@ public class ItemDto {
     public void resetOwner() {
         owner = null;
     }
+
+    private int myLastBidValue;
 }

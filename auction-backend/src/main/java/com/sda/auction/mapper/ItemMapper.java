@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +43,7 @@ public class ItemMapper {
         itemDto.setCategory(item.getCategory());
         itemDto.setStartingPrice(item.getStartingPrice());
         itemDto.setDescription(item.getDescription());
+        itemDto.setCurrentPrice(item.getCurrentPrice());
 
         String startDate = dateConverter.format(item.getStartDate());
         itemDto.setStartDate(startDate);
@@ -59,10 +61,24 @@ public class ItemMapper {
     }
 
     public List<ItemDto> convert(List<Item> allItems) {
-        List<ItemDto> result = new ArrayList<>();
-        for (Item item : allItems) {
-            result.add(convert(item));
-        }
+        //old way:
+//		List<ItemDto> result = new ArrayList<>();
+//		for (Item item : allItems) {
+//			result.add(convert(item));
+//		}
+//		return result;
+
+        //java 8, same thing as above:
+        return allItems.stream().map(this::convert).collect(Collectors.toList());
+    }
+
+    public ItemDto convert(Item item, String userEmail) {
+        ItemDto result = convert(item); // standard
+
+        //pasul aditional: vedem ultimul bid al userului logat
+        Integer bidValue = item.getHighestBidOf(userEmail);
+        result.setMyLastBidValue(bidValue);
+
         return result;
     }
 }

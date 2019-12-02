@@ -2,9 +2,15 @@ package com.sda.auction.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -61,5 +67,38 @@ public class Item {
 
     public String getOwnersName() {
         return owner.getFriendlyName();
+    }
+
+    public Integer getCurrentPrice() {
+        if (bids.isEmpty()) {
+            return startingPrice;
+        }
+        Bid maxBid = Collections.max(bids);
+        return maxBid.getPrice();
+    }
+
+    public boolean hasNoBids() {
+        return bids.isEmpty();
+    }
+
+    public Integer getHighestBidOf(String userEmail) {
+        //varianta clasica, pe care o stiti:
+//		int maxBidValue = -1;
+//		for (Bid each : bids) {
+//			if (each.getUser().getEmail().compareTo(userEmail) == 0) {
+//				if (maxBidValue < each.getPrice()) {
+//					maxBidValue = each.getPrice();
+//				}
+//			}
+//		}
+//		return maxBidValue;
+
+        // varianta ce foloseste java 8 si face acelasi lucru ca in codul de mai sus:
+        Optional<Bid> maxBid = bids.stream()
+                .filter(bid -> bid.getUserEmail().compareTo(userEmail) == 0)
+                .max(Comparator.comparing(Bid::getPrice));
+        return maxBid.isPresent() ? maxBid.get().getPrice() : -1;
+
+
     }
 }

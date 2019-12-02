@@ -11,4 +11,6 @@ public interface ItemRepository
 
     @Query("SELECT item FROM Item item where current_date between item.startDate and item.endDate")
     List<Item> findAllForBidding();
+
+    Item findByItemId(Integer itemId);
 }
